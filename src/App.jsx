@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Mic, MicOff, Volume2, RotateCcw, Sparkles } from 'lucide-react';
+import { Mic, MicOff, Volume2, Sparkles } from 'lucide-react';
 
 const MainCharacterVector = ({
   isSpeaking = false,
@@ -7,8 +7,7 @@ const MainCharacterVector = ({
   isBlinking = false,
   scale = 1,
 }) => {
-  // Dynamic mouth path interpolation for lip-sync[cite: 1]
-  const mouthHeight = isSpeaking ? Math.max(4, mouthOpenAmount * 18) : 2;[cite: 1]
+  const mouthHeight = isSpeaking ? Math.max(4, mouthOpenAmount * 18) : 2;
 
   return (
     <svg
@@ -29,7 +28,7 @@ const MainCharacterVector = ({
         </linearGradient>
       </defs>
 
-      {/* Shoulders & White Varsity Jacket[cite: 1] */}
+      {/* Shoulders & White Varsity Jacket */}
       <g id="outfit">
         <path
           d="M40 355 C45 295, 85 275, 115 268 L185 268 C215 275, 255 295, 260 355 Z"
@@ -38,13 +37,11 @@ const MainCharacterVector = ({
           strokeWidth="4"
           strokeLinejoin="round"
         />
-        {/* Jacket Center Opening[cite: 1] */}
         <path
           d="M150 285 L150 355"
           stroke="#0F172A"
           strokeWidth="3.5"
         />
-        {/* Ribbed Collar with Black Stripes[cite: 1] */}
         <path
           d="M105 265 Q150 305 195 265 L186 250 Q150 282 114 250 Z"
           fill="#FFFFFF"
@@ -60,7 +57,7 @@ const MainCharacterVector = ({
         />
       </g>
 
-      {/* Neck[cite: 1] */}
+      {/* Neck */}
       <path
         d="M122 215 L122 268 Q150 282 178 268 L178 215 Z"
         fill="#B5754A"
@@ -68,7 +65,7 @@ const MainCharacterVector = ({
         strokeWidth="4"
       />
 
-      {/* Ears[cite: 1] */}
+      {/* Ears */}
       <path
         d="M84 152 C70 150, 68 185, 86 190"
         fill="#C68658"
@@ -84,7 +81,7 @@ const MainCharacterVector = ({
         strokeLinecap="round"
       />
 
-      {/* Head Base[cite: 1] */}
+      {/* Head Base */}
       <path
         d="M85 120 C85 75, 215 75, 215 120 L212 178 C210 218, 178 242, 150 242 C122 242, 90 218, 88 178 Z"
         fill="#C68658"
@@ -92,7 +89,7 @@ const MainCharacterVector = ({
         strokeWidth="4"
       />
 
-      {/* Beard & Mustache[cite: 1] */}
+      {/* Beard & Mustache */}
       <g id="facial-hair">
         <path
           d="M87 168 C88 215, 118 242, 150 242 C182 242, 212 215, 213 168 C206 188, 195 215, 172 222 C160 225, 140 225, 128 222 C105 215, 94 188, 87 168 Z"
@@ -112,7 +109,7 @@ const MainCharacterVector = ({
         />
       </g>
 
-      {/* Animated Mouth[cite: 1] */}
+      {/* Animated Mouth */}
       <g className="mouth-anim">
         {isSpeaking && mouthOpenAmount > 0.12 ? (
           <ellipse
@@ -135,7 +132,7 @@ const MainCharacterVector = ({
         )}
       </g>
 
-      {/* Nose[cite: 1] */}
+      {/* Nose */}
       <path
         d="M146 150 L141 178 Q150 184 159 178"
         stroke="#0F172A"
@@ -145,7 +142,7 @@ const MainCharacterVector = ({
         fill="none"
       />
 
-      {/* Eyes & Blinking[cite: 1] */}
+      {/* Eyes & Blinking */}
       <g id="eyes">
         {isBlinking ? (
           <>
@@ -160,7 +157,7 @@ const MainCharacterVector = ({
         )}
       </g>
 
-      {/* Eyebrows[cite: 1] */}
+      {/* Eyebrows */}
       <path
         d="M102 135 Q122 128 140 136"
         stroke="#0F172A"
@@ -174,7 +171,7 @@ const MainCharacterVector = ({
         strokeLinecap="round"
       />
 
-      {/* Silver Double-Bridge Square Aviator Sunglasses[cite: 1] */}
+      {/* Silver Double-Bridge Square Aviator Sunglasses */}
       <g id="sunglasses">
         <line x1="85" y1="142" x2="98" y2="146" stroke="#CBD5E1" strokeWidth="3.5" />
         <line x1="215" y1="142" x2="202" y2="146" stroke="#CBD5E1" strokeWidth="3.5" />
@@ -204,7 +201,7 @@ const MainCharacterVector = ({
         <line x1="166" y1="144" x2="176" y2="162" stroke="#FFFFFF" strokeOpacity="0.25" strokeWidth="2.5" strokeLinecap="round" />
       </g>
 
-      {/* Hair Peek & Terracotta Baseball Cap[cite: 1] */}
+      {/* Hair Peek & Terracotta Baseball Cap */}
       <g id="headwear">
         <path
           d="M92 115 Q115 102 145 106 Q175 100 208 115 L205 95 L95 95 Z"
@@ -229,10 +226,10 @@ const MainCharacterVector = ({
 };
 
 export default function App() {
-  const [status, setStatus] = useState('idle'); // 'idle' | 'listening' | 'speaking'
+  const [status, setStatus] = useState('idle');
   const [mouthOpen, setMouthOpen] = useState(0);
   const [isBlinking, setIsBlinking] = useState(false);
-  const [voicePitch, setVoicePitch] = useState(1.25); // 1 = normal, 1.25 = funny, 0.8 = deep
+  const [voicePitch, setVoicePitch] = useState(1.25);
   const [autoMode, setAutoMode] = useState(true);
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -253,7 +250,6 @@ export default function App() {
     voicePitchRef.current = voicePitch;
   }, [voicePitch]);
 
-  // Natural random eye blinking
   useEffect(() => {
     let blinkTimeout;
     const scheduleBlink = () => {
@@ -346,7 +342,6 @@ export default function App() {
       recorder.start();
       setStatus('listening');
 
-      // Voice Activity Detection (Auto-detect speech & silence)
       let hasSpoken = false;
       let silenceStart = null;
       const startTime = Date.now();
@@ -372,7 +367,6 @@ export default function App() {
               return;
             }
           } else if (Date.now() - startTime > 15000) {
-            // Reset buffer if silent for too long
             recorder.stop();
             return;
           }
